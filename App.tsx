@@ -15,6 +15,7 @@ import {
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import BillDetail from './src/BillDetail';
+import CreateInvoice from './src/CreateInvoice';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -30,7 +31,7 @@ function App(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <BillDetail />
+      <CreateInvoice />
     </SafeAreaView>
   );
 }
