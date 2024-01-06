@@ -90,7 +90,45 @@ export default function CreateInvoice({navigation}: props) {
       setError({sgst: 'Enter SGST'});
       sgstRef?.current?.focus();
     } else {
-      navigation.navigate('')
+      const totalAmount =
+        parseInt(invoiceData.quantity) * parseInt(invoiceData.rate);
+      let data = {
+        farmName: 'RAJSHAKTI ENTERPRISE',
+        addLine1: 'SURVEY NO.14',
+        addLine2: 'SHED PLOT NO.2',
+        addLine3: 'NR.SHIV SHAKTI COAL CORPORATION TIMDI ROAD MORBI',
+        gstIn: '24ABUPZ2491D1Z5',
+        contact: '8306528989',
+        buyerfarmName: invoiceData.buyerFirmName,
+        buyeraddLine1: invoiceData.addressLine1,
+        buyeraddLine2: invoiceData.addressLine2,
+        buyeraddLine3: invoiceData.addressLine3,
+        buyergstIn: invoiceData.GSTIN,
+        buyercontact: '--',
+        buyerPan: invoiceData.PAN,
+        buyerState: invoiceData.state,
+        buyercode: invoiceData.code,
+        supply: invoiceData.placeofSupply,
+        item: [
+          {
+            no: 1,
+            name: invoiceData.goods,
+            HSN: invoiceData.hsn,
+            quantity: invoiceData.quantity,
+            rate: invoiceData.rate,
+            amount: totalAmount,
+            CGST: invoiceData.cgst,
+            SGST: invoiceData.sgst,
+          },
+        ],
+        farmPan: 'ABUPZ2491D',
+        bankName: 'HDFC BANK',
+        bankAc: '50200070212158',
+        bankIFSC: 'ADARSH COMPLEX & HDFC0002499',
+        totalQuantity: '1,03,500',
+        totalAmount: '1,03,811.00',
+      };
+      navigation.navigate('viewInvoice', data);
     }
   };
 

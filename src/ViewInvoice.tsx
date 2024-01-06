@@ -5,11 +5,15 @@ import Pdf from 'react-native-pdf';
 import {generateBill, generateList} from './utilities/GenerateBill';
 import WebView from 'react-native-webview';
 
-interface props {}
+interface props {
+  route: any;
+}
 
-export default function BillDetail(props: props) {
+export default function ViewInvoice(props: props) {
   const {width, height} = useWindowDimensions();
   const [pdfFile, setPDFFile] = useState('');
+
+  console.log('props', props.route.params);
 
   const data = {
     farmName: 'RAJSHAKTI ENTERPRISE',
@@ -73,9 +77,9 @@ export default function BillDetail(props: props) {
     createPDF();
   }, []);
   const createPDF = async () => {
-    generateList(data);
+    generateList(props.route.params);
     let options: Options = {
-      html: generateBill(data),
+      html: generateBill(props.route.params),
       fileName: 'test',
       directory: 'Documents',
     };
@@ -94,18 +98,18 @@ export default function BillDetail(props: props) {
           <WebView
             originWhitelist={['*']}
             scalesPageToFit={true}
-            contentMode='mobile'
+            contentMode="mobile"
             setBuiltInZoomControls={true}
             setDisplayZoomControls={true}
-            source={{html: generateBill(data)}}
+            source={{html: generateBill(props.route.params)}}
             style={{flex: 1}}
           />
-          {/* <Pdf
+          <Pdf
             source={{uri: pdfFile}}
-            onLoadComplete={(numberOfPages) => {
+            onLoadComplete={numberOfPages => {
               console.log(`Number of pages: ${numberOfPages}`);
             }}
-            onPageChanged={(page) => {
+            onPageChanged={page => {
               console.log(`Current page: ${page}`);
             }}
             onError={error => {
@@ -115,7 +119,7 @@ export default function BillDetail(props: props) {
               console.log(`Link pressed: ${uri}`);
             }}
             style={{flex: 1, width: width, height: height}}
-          /> */}
+          />
         </ScrollView>
       </View>
     </>
